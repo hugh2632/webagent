@@ -1,0 +1,6 @@
+[0306/132413.833:ERROR:file_io_win.cc(161)] CreateFile C:\Users\luhk_sh\AppData\Local\Temp\chromedp-runner101620059\Crashpad\settings.dat: 系统找不到指定的路径。 (0x3)
+[0306/132413.834:ERROR:file_io_win.cc(170)] CreateFile C:\Users\luhk_sh\AppData\Local\Temp\chromedp-runner101620059\Crashpad\reports\eda33791-0421-4e00-bd14-8c0bd81efde3.dmp: 系统找不到指定的路径。 (0x3)
+[0306/132413.834:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
+[0306/132701.487:ERROR:file_io_win.cc(161)] CreateFile C:\Users\luhk_sh\AppData\Local\Temp\chromedp-runner193146643\Crashpad\settings.dat: 系统找不到指定的路径。 (0x3)
+[0306/132701.488:ERROR:file_io_win.cc(170)] CreateFile C:\Users\luhk_sh\AppData\Local\Temp\chromedp-runner193146643\Crashpad\reports\629f32e8-4e12-43df-b791-76b0f3226cf9.dmp: 系统找不到指定的路径。 (0x3)
+[0306/132701.488:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed

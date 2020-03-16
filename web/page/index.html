@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="../js/jquery-2.2.0.min.js"></script>
+	<script src="../js/jquery.easyui.min.js"></script>
+</head>
+<body>
+<div class="createtaskcls">
+	<input type="submit" onclick="CreateTask()" value="生成任务"/>
+	<input id="tskid" type="text" readonly="true" width="200px"/>
+	<input type="submit" onclick="RunTask()" value="执行"/>
+	<input type="submit" onclick="GetTaskRes()" value="获取结果"/>
+	<br>
+	<div id="reslist"></div>
+</div>
+
+<div class="searchcls">
+	<input id="w" type="text" width="300px"/>
+	<input type="submit" onclick="search()" value="搜索"/>
+	<div id="list"></div>
+</div>
+
+</body>
+<script>
+	function search() {
+		$.ajax({
+                type: 'post',
+                cache: false,
+                url: '/api/v1/search',
+                data: {
+					key: $('#w').val()
+				},
+                success: function(val) {
+                    if (val.iserror) {
+                        alert("查询有误");
+                    }
+                    else{
+						$('#list').empty();
+						var datas = JSON.parse(val.data);
+						for(var i=0;i<datas.length;i++){
+							$('#list').append('<div class="part"></div>');
+							var part = $('#list .part :last');
+							var title = '<a target="view_window" href="' + datas[i].Webdata_url + '">' + datas[i].Webdata_title + '</a>';
+							var date = '<span>' + datas[i].Webdata_date + '</span>' ;
+							$(part).append(title);
+							$(part).append(date);
+                        	$(part).append('<hr />');
+						}
+					
+                    }
+                }
+            });
+	}
+	function CreateTask() {
+		$.ajax({
+			type: 'post',
+			cache: false,
+			url: '/api/v1/createtask',
+			data: {
+				webid: '98619442010783745',
+				onlyfirst: 'no',
+				rebuild: 'yes'
+			},
+			success: function(val) {
+				if (val.iserror) {
+					alert("查询有误");
+				}
+				else{
+					$('#tskid').val(val.taskid);
+				}
+			}
+		});
+	}
+	function RunTask() {
+		$.ajax({
+			type: 'post',
+			cache: false,
+			url: '/api/v1/runtask',
+			data: {
+				id: $('#tskid').val()
+			},
+			async: false,
+			success: function(val) {
+				if (val.iserror) {
+					alert(val.msg);
+				}
+				else{
+					alert(val.msg);
+				}
+			}
+		});
+	}
+
+	function GetTaskRes() {
+		$.ajax({
+			type: 'post',
+			cache: false,
+			url: '/api/v1/gettaskres',
+			data: {
+				id: $('#tskid').val()
+			},
+			success: function(val) {
+				if (val.iserror) {
+					alert("查询有误");
+				}
+				else{
+					var info = val.info;
+					$('#reslist').empty();
+					var infolabel = "<label>任务开始时间" + info.Taskinfo_starttime + " ，任务结束时间" + info.Taskinfo_endtime + "， 是否只扫主页" + info.Taskinfo_onlyfirst + "， 是否强制重扫" + info.Taskinfo_rebuild + "， 扫描结果" + info.Taskinfo_status + "</label>"
+					$('#reslist').append(infolabel);
+					var datas = val.result;
+					for(var i=0;i<datas.length;i++){
+						$('#reslist').append('<div class="part"></div>');
+						var part = $('#reslist .part :last');
+						var title = '<a target="view_window" href="' + datas[i].Taskres_pageurl + '">' + datas[i].Taskres_pagetitle + '</a>';
+						var date = '<span>状态:' + datas[i].Taskres_status + '</span>' ;
+						$(part).append(date);
+						$(part).append(title);
+						$(part).append('<hr />');
+					}
+
+				}
+			}
+		});
+	}
+
+</script>
+</html>

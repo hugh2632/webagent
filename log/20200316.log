@@ -1,0 +1,295 @@
+2020/03/16 10:13:56 程序已启动...
+2020/03/16 10:14:25 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 10:14:56 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 10:21:51 程序已启动...
+2020/03/16 10:22:34 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:23:56 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:26:05 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:28:29 var res = [];
+$('.news-list').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('.time').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 10:29:16 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:30:14 程序已启动...
+2020/03/16 10:30:35 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:31:06 程序已启动...
+2020/03/16 10:31:30 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:32:07 runtime error: invalid memory address or nil pointer dereference
+2020/03/16 10:36:11 程序已启动...
+2020/03/16 11:02:07 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 11:08:34 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 11:34:50 程序已启动...
+2020/03/16 11:37:44 sql: expected 0 arguments, got 1
+2020/03/16 11:38:04 sql: expected 0 arguments, got 1
+2020/03/16 11:38:06 sql: expected 0 arguments, got 1
+2020/03/16 11:38:17 sql: expected 0 arguments, got 1
+2020/03/16 11:38:47 程序已启动...
+2020/03/16 11:39:23 sql: expected 0 arguments, got 1
+2020/03/16 12:44:48 sql: expected 0 arguments, got 1
+2020/03/16 12:45:29 sql: expected 0 arguments, got 1
+2020/03/16 12:45:48 sql: expected 0 arguments, got 1
+2020/03/16 12:48:20 程序已启动...
+2020/03/16 12:49:53 程序已启动...
+2020/03/16 12:49:58 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": unsupported Scan, storing driver.Value type []uint8 into type *time.Time
+2020/03/16 12:49:58 interface conversion: string is not error: missing method Error
+2020/03/16 12:50:19 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": unsupported Scan, storing driver.Value type []uint8 into type *time.Time
+2020/03/16 12:50:19 interface conversion: string is not error: missing method Error
+2020/03/16 12:50:48 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": unsupported Scan, storing driver.Value type []uint8 into type *time.Time
+2020/03/16 12:54:20 程序已启动...
+2020/03/16 12:54:36 程序已启动...
+2020/03/16 12:59:56 程序已启动...
+2020/03/16 13:02:44 程序已启动...
+2020/03/16 13:35:22 程序已启动...
+2020/03/16 13:35:41 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 13:38:06 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 13:39:07 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 13:40:21 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 13:40:31 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 14:06:14 程序已启动...
+2020/03/16 14:07:06 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 14:08:47 程序已启动...
+2020/03/16 14:08:53 程序已启动...
+2020/03/16 14:17:12 程序已启动...
+2020/03/16 14:19:58 程序已启动...
+2020/03/16 14:27:12 程序已启动...
+2020/03/16 14:31:17 程序已启动...
+2020/03/16 14:33:07 程序已启动...
+2020/03/16 14:34:42 程序已启动...
+2020/03/16 14:36:05 程序已启动...
+2020/03/16 15:09:59 程序已启动...
+2020/03/16 15:11:44 无法启动Chrome,请确认有没有安装Cannot navigate to invalid URL (-32000)
+2020/03/16 15:12:06 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:12:06 interface conversion: string is not error: missing method Error
+2020/03/16 15:12:28 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:12:28 interface conversion: string is not error: missing method Error
+2020/03/16 15:13:13 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:13:13 interface conversion: string is not error: missing method Error
+2020/03/16 15:25:49 程序已启动...
+2020/03/16 15:26:19 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:26:19 interface conversion: string is not error: missing method Error
+2020/03/16 15:26:58 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:27:35 interface conversion: string is not error: missing method Error
+2020/03/16 15:29:24 程序已启动...
+2020/03/16 15:29:47 查询taskinfo失败,sql: no rows in result set
+2020/03/16 15:29:50 interface conversion: string is not error: missing method Error
+2020/03/16 15:30:13 无法启动Chrome,请确认有没有安装Cannot navigate to invalid URL (-32000)
+2020/03/16 15:31:31 无法启动Chrome,请确认有没有安装Cannot navigate to invalid URL (-32000)
+2020/03/16 15:32:01 无法启动Chrome,请确认有没有安装Cannot navigate to invalid URL (-32000)
+2020/03/16 15:32:49 程序已启动...
+2020/03/16 15:33:05 执行脚本失败,Cannot navigate to invalid URL (-32000)
+2020/03/16 15:33:27 执行脚本失败,Cannot navigate to invalid URL (-32000)
+2020/03/16 15:34:33 执行脚本失败,Cannot navigate to invalid URL (-32000)
+2020/03/16 15:38:36 程序已启动...
+2020/03/16 15:55:56 程序已启动...
+2020/03/16 15:56:24 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 16:03:40 程序已启动...
+2020/03/16 16:04:28 查询taskinfo失败,sql: no rows in result set
+2020/03/16 16:04:28 interface conversion: string is not error: missing method Error
+2020/03/16 16:04:53 查询taskinfo失败,sql: no rows in result set
+2020/03/16 16:04:53 interface conversion: string is not error: missing method Error
+2020/03/16 16:12:56 程序已启动...
+2020/03/16 16:14:25 程序已启动...
+2020/03/16 16:14:46 程序已启动...
+2020/03/16 16:15:02 查询taskinfo失败,sql: no rows in result set
+2020/03/16 16:15:02 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:21 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 16:15:26 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:26 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:30 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:30 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:38 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:38 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:44 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:44 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:46 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:46 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:48 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:48 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:50 查询taskinfo失败,sql: Scan error on column index 5, name "Taskinfo_starttime": converting NULL to string is unsupported
+2020/03/16 16:15:50 interface conversion: string is not error: missing method Error
+2020/03/16 16:15:55 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 16:16:26 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 16:16:57 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 16:31:43 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,context canceled
+2020/03/16 16:31:57 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,context canceled
+2020/03/16 16:32:09 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,context canceled
+2020/03/16 16:33:01 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,context canceled
+2020/03/16 16:33:16 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,context canceled
+2020/03/16 17:05:54 程序已启动...
+2020/03/16 18:08:35 程序已启动...
+2020/03/16 18:08:54 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/16 18:16:32 程序已启动...
+2020/03/16 18:18:49 程序已启动...

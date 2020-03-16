@@ -1,0 +1,25 @@
+2020/03/13 13:57:01 程序已启动...
+2020/03/13 13:58:08 程序已启动...
+2020/03/13 13:58:26 执行脚本失败,Cannot navigate to invalid URL (-32000)
+2020/03/13 14:00:37 执行脚本失败,Cannot navigate to invalid URL (-32000)
+2020/03/13 14:01:04 程序已启动...
+2020/03/13 14:01:41 runtime error: invalid memory address or nil pointer dereference
+2020/03/13 14:05:27 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/13 14:06:52 var res = [];
+$('.info li').each(function(){
+	var tmp = {};
+	tmp.Title = $(this).find('a').text();
+	tmp.Url = $(this).find('a').prop('href');
+	tmp.Date = $(this).find('span').text();
+	res.push(tmp);
+});
+res;执行脚本失败,encountered exception 'Uncaught' (1:0)
+2020/03/13 17:00:53 程序已启动...
