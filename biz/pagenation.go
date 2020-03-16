@@ -35,10 +35,14 @@ func (p pagenation) has(url string) bool {
 	return false
 }
 
-func (p pagenation) RunDynic(millisecond int) bool {
+func (p pagenation) RunDynic(pagerule string, millisecond int) bool {
+	err := p.mtab.NoWaitEvaluate(pagerule, nil)
+	if err != nil {
+		return false
+	}
 	time.Sleep(time.Duration(millisecond) * time.Millisecond)
 	var datas []model.CrawlerData
-	err := p.mtab.NoWaitEvaluate(p.SpiderRule, &datas)
+	err = p.mtab.NoWaitEvaluate(p.SpiderRule, &datas)
 	if err != nil || datas == nil || len(datas) == 0 {
 		log.Println(err.Error())
 		return false
@@ -55,6 +59,7 @@ func (p pagenation) RunDynic(millisecond int) bool {
 
 func (p pagenation) RunStatic(url string) bool {
 	var tab = crawler.Instance().NewTab()
+	defer tab.Close()
 	var datas []model.CrawlerData
 	err := tab.NavigateEvaluate(url, p.SpiderRule, &datas)
 	if err != nil && err.Error() != "encountered an undefined value" {

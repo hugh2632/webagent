@@ -8,7 +8,11 @@ import (
 	"github.com/chromedp/cdproto/dom"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
+	"log"
+	"reflect"
+	"strings"
 	"sync"
+	"time"
 )
 
 type ChromeTab struct {
@@ -17,50 +21,25 @@ type ChromeTab struct {
 	loaded  bool
 	stopped bool
 	ch      chan struct{}
+	msgchan chan bool
+	browser *chromeBrowser
 	sync.Once
-	browser    *ChromeBrowser
 	SpiderRule string
 }
 
 func (self ChromeTab) Close() {
 	if self.browser != nil {
 		self.browser.Destroy(&self)
-	} else {
-		fmt.Println("已退出")
 	}
-	self.CancelFunc()
+	if self.Err() != context.DeadlineExceeded{
+		self.CancelFunc()
+	}
 }
 
 func (self ChromeTab) Reset() {
 	self.stopped = false
 	self.loaded = false
 }
-
-func (self ChromeTab) Stop() {
-	//self.CancelFunc()
-}
-
-type _baseGetAction func(context.Context) error
-
-//func (self ChromeTab) baseGet(url string, f _baseGetAction) error{
-//	ch := make(chan struct{})
-//	defer self.Close()
-//	var err error
-//
-//	err = chromedp.Run(self,
-//		chromedp.Navigate(url))
-//	if err != nil {
-//		fmt.Println("url是否有误？url:" + url + ",error:" + err.Error())
-//		return err
-//	}
-//	select {
-//	case <-time.After(time.Millisecond * time.Duration(Timeout)):
-//		fmt.Println(url + ",加载超时")
-//		return errors.New("加载超时")
-//	case <-ch:
-//		return f(self)
-//	}
-//}
 
 //获取pdf字节流
 func (self ChromeTab) GetPdfBytes(url string) ([]byte, error) {
@@ -76,6 +55,54 @@ func (self ChromeTab) GetPdfBytes(url string) ([]byte, error) {
 	return pdfBuffer, er
 }
 
+func (self ChromeTab) reset(){
+	self.loaded = false
+	self.stopped = false
+}
+
+func (self ChromeTab) listen(){
+	go func() {
+		self.Do(func() {
+			chromedp.ListenTarget(self, func(ev interface{}) {
+				if IsDubug{
+					te :=  reflect.Indirect(reflect.ValueOf(ev)).Type()
+					name := te.String()
+					if strings.HasPrefix(name, "page."){
+						fmt.Println(name + "\t" + reflect.ValueOf(ev).Elem().String())
+					}
+				}
+				switch ev.(type) {
+				case *page.EventLoadEventFired://两个事件确保加载完了页面
+					go func() {
+						self.loaded= true
+						if self.stopped{
+							self.ch <- struct{}{}
+						}
+					}()
+				case *page.EventFrameStoppedLoading://会多次触发。。 不知道原因
+					go func() {
+						self.stopped = true
+						if self.loaded {
+							self.ch <- struct{}{}
+						}
+					}()
+				}
+			})
+		})
+	}()
+	go func() {
+		select{
+		case <-time.After(time.Duration(Timeout)):
+			log.Println("加载超时")
+			self.msgchan <- false
+		case <-self.ch:
+			self.reset()
+			self.msgchan <- true
+		}
+	}()
+}
+
+
 //获取html文本
 func (self ChromeTab) Gethtml(url string) (string, error) {
 	var err error
@@ -83,6 +110,10 @@ func (self ChromeTab) Gethtml(url string) (string, error) {
 	err = self.Navigate(url)
 	if err != nil {
 		return res, err
+	}
+	b := <- self.msgchan
+	if !b {
+		return res, UrlTimeout
 	}
 	var ids []cdp.NodeID
 	err = chromedp.Run(self,
@@ -106,6 +137,10 @@ func (self ChromeTab) NavigateEvaluate(url string, rule string, v interface{}) e
 	var err = chromedp.Run(self, chromedp.Navigate(url))
 	if err != nil {
 		return err
+	}
+	b := <- self.msgchan
+	if !b {
+		return UrlTimeout
 	}
 	err = chromedp.Run(self, chromedp.Evaluate(rule, &v))
 	return err

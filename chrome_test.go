@@ -8,5 +8,8 @@ import (
 func Test_C(t *testing.T) {
 	tab := crawler.Instance().NewTab()
 	_ = tab.Navigate("https://www.ics-cert.org.cn/portal/page/111/index_3.html#")
+	tab.WaitLoaded()
+	t.Log("加载完成")
+	tab.Close()
 	select {}
 }

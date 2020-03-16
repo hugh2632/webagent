@@ -5,27 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="007fcd05-dd82-48ed-8e40-ac84afaf229b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/chrome_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/taskres.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/webdata.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/pool/numpool.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webagent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webagent.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biz/pagenation.go" beforeDir="false" afterPath="$PROJECT_DIR$/biz/pagenation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/biz/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/biz/task.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/br_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/common_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chrome_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/chrome_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/app.ini" beforeDir="false" afterPath="$PROJECT_DIR$/conf/app.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/taskinfo.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/taskinfo.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/20200313.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/20200316.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/crawler/browser.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/crawler/browser.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/crawler/tab.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/crawler/tab.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/setting/setting.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/setting/setting.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/api/v1/search.go" beforeDir="false" afterPath="$PROJECT_DIR$/routers/api/v1/search.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/api/v1/task.go" beforeDir="false" afterPath="$PROJECT_DIR$/routers/api/v1/task.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routers/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/routers/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/bloomfilter/bloomfilter.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/bloomfilter/bloomfilter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/mysql/mysql.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/page/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/page/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,32 +31,41 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/biz/task.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="79" column="18" lean-forward="true" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+            <state relative-caret-position="42">
+              <caret line="174" column="17" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
               <folding>
-                <element signature="n#!!block;n#TaskListSite#0" />
+                <element signature="e#5754#6599#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pkg/crawler/browser.go">
+        <entry file="file://$PROJECT_DIR$/biz/pagenation.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="85" selection-start-line="85" selection-end-line="85" />
+            <state relative-caret-position="18">
+              <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+              <folding>
+                <element signature="n#!!block;n#has#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chrome_test.go">
+        <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-              <folding>
-                <element signature="e#14#59#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-207">
+              <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/crawler/browser.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="56">
+              <caret line="66" selection-start-line="66" selection-end-line="66" />
             </state>
           </provider>
         </entry>
@@ -75,8 +73,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routers/router.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+            <state relative-caret-position="18">
+              <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -119,6 +117,7 @@
       <find>bloom</find>
       <find>str</find>
       <find>base64 data</find>
+      <find>ChromeBrowser</find>
     </findStrings>
     <replaceStrings>
       <replace>webagent</replace>
@@ -161,24 +160,24 @@
         <option value="$PROJECT_DIR$/util/logInt/loginit.go" />
         <option value="$PROJECT_DIR$/util/bloomfilter/bloomfilter.go" />
         <option value="$PROJECT_DIR$/pkg/setting/setting.go" />
-        <option value="$PROJECT_DIR$/conf/app.ini" />
         <option value="$PROJECT_DIR$/util/mysql/mysql.go" />
         <option value="$PROJECT_DIR$/util/pool/numpool.go" />
         <option value="$PROJECT_DIR$/model/taskres.go" />
         <option value="$PROJECT_DIR$/model/taskinfo.go" />
         <option value="$PROJECT_DIR$/util/htmlUtil/html.go" />
         <option value="$PROJECT_DIR$/model/webdata.go" />
-        <option value="$PROJECT_DIR$/biz/task.go" />
         <option value="$PROJECT_DIR$/routers/api/v1/task.go" />
         <option value="$PROJECT_DIR$/routers/api/v1/search.go" />
-        <option value="$PROJECT_DIR$/web/page/index.html" />
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/biz/pagenation.go" />
-        <option value="$PROJECT_DIR$/pkg/crawler/tab.go" />
         <option value="$PROJECT_DIR$/routers/router.go" />
         <option value="$PROJECT_DIR$/chromeTest.go" />
         <option value="$PROJECT_DIR$/chrome_test.go" />
+        <option value="$PROJECT_DIR$/web/page/index.html" />
+        <option value="$PROJECT_DIR$/conf/app.ini" />
+        <option value="$PROJECT_DIR$/biz/task.go" />
+        <option value="$PROJECT_DIR$/pkg/crawler/tab.go" />
         <option value="$PROJECT_DIR$/pkg/crawler/browser.go" />
+        <option value="$PROJECT_DIR$/biz/pagenation.go" />
       </list>
     </option>
   </component>
@@ -192,17 +191,13 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
               <item name="webagent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="webagent" type="462c0819:PsiDirectoryNode" />
-              <item name="biz" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
@@ -228,28 +223,27 @@
             <path>
               <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
               <item name="webagent" type="462c0819:PsiDirectoryNode" />
+              <item name="routers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webagent" type="462c0819:PsiDirectoryNode" />
               <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="webagent" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.13.4" type="20ee2d1f:SyntheticLibraryElementNode" />
-            </path>
-            <path>
-              <item name="webagent" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Go SDK 1.13.4" type="20ee2d1f:SyntheticLibraryElementNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -287,7 +281,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.Test_C in webagent">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="webagent" />
       <working_directory value="$PROJECT_DIR$" />
@@ -343,8 +337,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.Test_C in webagent" />
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.Test_C in webagent" />
         <item itemvalue="Go Test.TestLog in webagent/util/logInt" />
         <item itemvalue="Go Test.TestChan in webagent" />
         <item itemvalue="Go Test.Test_b in webagent" />
@@ -352,48 +346,47 @@
     </recent_temporary>
   </component>
   <component name="TestHistory">
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 36m 40s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 37m 13s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 37m 32s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 38m 20s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 54m 41s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 58m 04s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestChan_in_webagent - 2020.03.12 at 12h 58m 25s.xml">
-      <configuration name="TestChan in webagent" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestLog_in_webagent_util_logInt - 2020.03.12 at 15h 06m 59s.xml">
-      <configuration name="TestLog in webagent/util/logInt" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="Test_C_in_webagent - 2020.03.16 at 18h 18m 46s.xml">
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 39m 23s.xml">
       <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="Test_C_in_webagent - 2020.03.16 at 18h 21m 04s.xml">
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 42m 59s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 44m 11s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 45m 29s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 52m 20s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 53m 35s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 54m 11s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.16 at 23h 54m 48s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.17 at 01h 02m 17s.xml">
+      <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="Test_C_in_webagent - 2020.03.17 at 01h 02m 59s.xml">
       <configuration name="Test_C in webagent" configurationId="GoTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49925926" visible="true" weight="0.21108742" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925926" visible="true" weight="0.21406959" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50074077" side_tool="true" weight="0.20255864" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.4186551" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24728851" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39262474" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.4903226" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.44354838" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.32903227" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -408,20 +401,20 @@
       <window_info anchor="right" id="Database" order="3" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925926" visible="true" weight="0.20255864" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925926" visible="true" weight="0.21406959" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50074077" side_tool="true" weight="0.20255864" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.18872017" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.4186551" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.24728851" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.26789588" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39262474" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.329718" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -441,26 +434,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/routers/api/v1/search.go</url>
-          <properties />
           <option name="timeStamp" value="118" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/biz/task.go</url>
-          <line>164</line>
-          <properties />
+          <line>287</line>
           <option name="timeStamp" value="126" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/crawler/browser.go</url>
-          <line>102</line>
+          <url>file://$PROJECT_DIR$/chrome_test.go</url>
+          <line>12</line>
           <properties />
-          <option name="timeStamp" value="131" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/pkg/crawler/browser.go</url>
-          <line>101</line>
-          <properties />
-          <option name="timeStamp" value="134" />
+          <option name="timeStamp" value="151" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -596,13 +581,6 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/chromedp/chromedp@v0.5.3/chromedp.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31">
-          <caret line="206" column="5" lean-forward="true" selection-start-line="206" selection-start-column="5" selection-end-line="206" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/bloomfilter/bloomfilter.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="43">
@@ -635,24 +613,10 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/br_test.go" />
-    <entry file="file://C:/Go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="695" selection-start-line="695" selection-end-line="695" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/robertkrimen/otto@v0.0.0-20191219234010-c382bd3c16ff/type_function.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3743">
           <caret line="197" selection-start-line="197" selection-end-line="197" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/runtime/asm_amd64.s">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10222">
-          <caret line="538" selection-start-line="538" selection-end-line="538" />
         </state>
       </provider>
     </entry>
@@ -667,13 +631,6 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/context/context.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="205" selection-start-line="205" selection-end-line="205" />
         </state>
       </provider>
     </entry>
@@ -712,13 +669,6 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="178" selection-start-line="178" selection-end-line="178" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/conf/app.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -767,16 +717,6 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/page/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1292">
-          <caret line="96" column="25" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
-          <folding>
-            <element signature="e#314#1213#0#HTML" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routers/api/v1/task.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -791,16 +731,6 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/biz/pagenation.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#has#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Go/src/encoding/base64/base64.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="620">
@@ -808,51 +738,103 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10)</expression-string>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routers/router.go">
+    <entry file="file://$PROJECT_DIR$/../pkg/mod/github.com/chromedp/chromedp@v0.5.3/chromedp.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="-316">
+          <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="95" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
+    <entry file="file://C:/Go/src/runtime/asm_amd64.s">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="133">
+          <caret line="1357" selection-start-line="1357" selection-end-line="1357" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/crawler/tab.go">
+    <entry file="file://C:/Go/src/runtime/panic.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="73" column="11" lean-forward="true" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/biz/task.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="79" column="18" lean-forward="true" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
-          <folding>
-            <element signature="n#!!block;n#TaskListSite#0" />
-          </folding>
+        <state relative-caret-position="125">
+          <caret line="846" selection-start-line="846" selection-end-line="846" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/chrome_test.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
           <folding>
             <element signature="e#14#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/conf/app.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" column="16" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/page/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/biz/task.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="174" column="17" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
+          <folding>
+            <element signature="e#5754#6599#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routers/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="20" column="31" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/context/context.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="153" column="12" selection-start-line="153" selection-start-column="4" selection-end-line="153" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/crawler/browser.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="85" selection-start-line="85" selection-end-line="85" />
+        <state relative-caret-position="56">
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-207">
+          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/crawler/tab.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="152" column="22" selection-start-line="152" selection-start-column="22" selection-end-line="152" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/biz/pagenation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!block;n#has#0" />
+          </folding>
         </state>
       </provider>
     </entry>

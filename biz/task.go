@@ -166,6 +166,9 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10))
 
 func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spiderrule string, onlyfirst bool, rebuild bool) error {
 	var starttime = time.Now().Format("2006-01-02 15:04:05")
+	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+		_, _ = db.Exec(fmt.Sprintf(`update taskinfo set Taskinfo_status = '%v' where Taskinfo_id = '%v'`, 0, taskid))
+	})
 	var webidstr = strconv.FormatUint(webid, 10)
 	var dataList []model.CrawlerData
 	var tab = crawler.Instance().NewTab()
@@ -190,7 +193,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 		}
 		dataList = append(dataList, data...)
 	}
-
+	tab.Close()
 	var bloom = bloomfilter.NewSqlFilter(webidstr, 4096, setting.MysqlDataSource, bloomfilter.DefaultHash...)
 	var ncount = len(dataList)
 	var wg = sync.WaitGroup{}
@@ -200,7 +203,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 			var v = dataList[index]
 			newDate, _ := util.ParseAnyTime(v.Date)
 			var htmlStr = "" //源html文档
-			var status = -1  //爬取结果,-1表示获取网站内容失败,-2代表保存文件失败， -3代表html源码获取成功，但是脱皮失败，0代表跳过,1代表成功
+			var status = -1  //爬取结果,-1表示获取网站内容失败,-2代表保存文件失败， -3代表html源码获取成功，但是脱皮失败,-4代表超时，0代表跳过,1代表成功
 			var str = ""     //保存在数据库的脱皮数据
 			var ha = fmt.Sprintf("%x", md5.Sum([]byte(v.Title+newDate.Format("20060102"))))
 			var path = "backup/" + webidstr + "/"
@@ -208,7 +211,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 			defer func() {
 				er := recover()
 				if er != nil {
-					fmt.Println(er)
+					log.Println(er)
 				}
 				//保存数据
 				mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
@@ -242,9 +245,12 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 			}
 
 			var aTab = crawler.Instance().NewTab()
-
+			defer aTab.Close()
 			htmlStr, err := aTab.Gethtml(v.Url)
 			if err != nil {
+				if err == crawler.UrlTimeout {
+					status = -4
+				}
 				status = -1
 				panic("获取网站内容失败" + err.Error())
 			}

@@ -2,12 +2,9 @@ package crawler
 
 import (
 	"context"
-	"fmt"
-	"github.com/chromedp/cdproto/page"
+	"errors"
 	"github.com/chromedp/chromedp"
 	"log"
-	"reflect"
-	"strings"
 	"sync"
 	"time"
 )
@@ -15,94 +12,77 @@ import (
 var IsDubug bool = true
 var Timeout time.Duration = time.Duration(30) * time.Second
 var Capacity int = 5
-var _instace *ChromeBrowser
+var _instace *chromeBrowser
 var locker sync.RWMutex
-var FirstPage = "https://www.baidu.com"
+var FirstPage = "about:blank"
+var UrlTimeout error = errors.New("网站已超时")
 
-type ChromeBrowser struct {
-	context.Context
-	context.CancelFunc
+type chromeBrowser struct {
+	ctx *context.Context
+	cancel *context.CancelFunc
 	sync.RWMutex
 	count int
 }
 
-func Instance() *ChromeBrowser{
+func Instance() *chromeBrowser{
 	if _instace == nil {
 		locker.Lock()
 		defer locker.Unlock()
 		if _instace == nil {
-			opts := append(chromedp.DefaultExecAllocatorOptions[:],
-				chromedp.DisableGPU,
-				chromedp.NoDefaultBrowserCheck,
-				chromedp.NoSandbox,
-				chromedp.NoDefaultBrowserCheck,
-				chromedp.Flag("headless", !IsDubug),
-				chromedp.Flag("ignore-certificate-errors", true),
-			)
-			allocCtx, _ := chromedp.NewExecAllocator(context.Background(), opts...)
-			br, cancel := chromedp.NewContext(allocCtx, chromedp.WithLogf(log.Printf))
-			err := chromedp.Run(br, chromedp.Navigate(FirstPage))
-			if err != nil {
-				panic("无法启动Chrome,请确认有没有安装" + err.Error())
+			ctx, cancel := newctx()
+			_instace = &chromeBrowser{
+				ctx: &ctx,
+				cancel:&cancel,
+				count:0,
 			}
-			_instace = &ChromeBrowser{
-				Context:    br,
-				CancelFunc: cancel,
-				count: 0,
-			}
+
 		}
 	}
 	return _instace
 }
 
-func (self *ChromeBrowser) NewTab() *ChromeTab{
+func newctx() (context.Context, context.CancelFunc){
+	opts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.DisableGPU,
+		chromedp.NoDefaultBrowserCheck,
+		chromedp.NoSandbox,
+		chromedp.NoDefaultBrowserCheck,
+		chromedp.Flag("headless", !IsDubug),
+		chromedp.Flag("ignore-certificate-errors", true),
+	)
+	allocCtx, _ := chromedp.NewExecAllocator(context.Background(), opts...)
+	br, cancel := chromedp.NewContext(allocCtx, chromedp.WithLogf(log.Printf))
+	err := chromedp.Run(br, chromedp.Navigate(FirstPage))
+	if err != nil {
+		panic("无法启动Chrome,请确认有没有安装" + err.Error())
+	}
+	return br, cancel
+}
+
+func (self *chromeBrowser) NewTab() *ChromeTab{
 	for {
 		self.Lock()
 		if self.count < Capacity{
 			self.count++
+			var brctx = *self.ctx
+			var ers = brctx.Err()
+			if ers != nil && ers == context.Canceled {
+				log.Println("浏览器被关闭，强制重开一个")
+				ctx, cl := newctx()
+				self.ctx = &ctx
+				self.cancel = &cl
+				self.count = 0
+			}
 			self.Unlock()
-			taskCtx, cancel := chromedp.NewContext(self)
+			taskCtx, cancel := chromedp.NewContext(brctx)
 			var tab = ChromeTab{
 				Context:    taskCtx,
 				CancelFunc: cancel,
-				browser:self,
+				browser: self,
+				ch: make(chan struct{}),
+				msgchan: make(chan bool),
 			}
-			go func() {
-				tab.Do(func() {
-					chromedp.ListenTarget(tab, func(ev interface{}) {
-						if IsDubug{
-							te :=  reflect.Indirect(reflect.ValueOf(ev)).Type()
-							name := te.String()
-							//if strings.HasPrefix(name, "page.") || strings.HasPrefix(name, "network.") { //页面事件
-							if strings.HasPrefix(name, "page."){
-								fmt.Println(name + "\t" + reflect.ValueOf(ev).Elem().String())
-							}
-						}
-						switch ev.(type) {
-						case *page.EventLoadEventFired://两个事件确保加载完了页面
-							go func() {
-								tab.loaded= true
-								if tab.stopped{
-									tab.ch <- struct{}{}
-								}
-							}()
-						case *page.EventFrameStoppedLoading://会多次触发。。 不知道原因
-							go func() {
-								tab.stopped = true
-								if tab.loaded {
-									tab.ch <- struct{}{}
-								}
-							}()
-						}
-					})
-				})
-			}()
-			go func() {
-				select {
-				case <- tab.ch:
-					self.Destroy(&tab)
-				}
-			}()
+			tab.listen()
 			return &tab
 		}
 		self.Unlock()
@@ -110,7 +90,7 @@ func (self *ChromeBrowser) NewTab() *ChromeTab{
 	}
 }
 
-func (self *ChromeBrowser) Destroy(tab *ChromeTab) {
+func (self *chromeBrowser) Destroy(tab *ChromeTab) {
 	self.Lock()
 	tab = nil
 	self.count--
