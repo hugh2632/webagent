@@ -1,15 +1,25 @@
 package main
 
 import (
+	"fmt"
+	"github.com/pkg/errors"
 	"testing"
-	"webagent/pkg/crawler"
 )
 
 func Test_C(t *testing.T) {
-	tab := crawler.Instance().NewTab()
-	_ = tab.Navigate("https://www.ics-cert.org.cn/portal/page/111/index_3.html#")
-	tab.WaitLoaded()
-	t.Log("加载完成")
-	tab.Close()
-	select {}
+	errr := tt()
+	fmt.Println(errr.Error())
 }
+
+func tt() error{
+	var err error
+	defer func() {
+		var er = recover()
+		if er != nil{
+			err = er.(error)
+		}
+	}()
+	panic(errors.New("测试"))
+	return err
+}
+

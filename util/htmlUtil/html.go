@@ -15,7 +15,7 @@ func GetSelfNodeStr(node *html.Node) (res string, err error) {
 	case html.ErrorNode:
 		return "", errors.New("不能转换error节点")
 	case html.TextNode:
-		return html.EscapeString(node.Data), nil
+		return strings.TrimSpace(node.Data), nil
 	case html.DocumentNode:
 		return "", nil
 	case html.ElementNode:

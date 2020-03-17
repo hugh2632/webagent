@@ -275,12 +275,15 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 
 				var pellNodes func(*html.Node) error
 				pellNodes = func(node *html.Node) error {
+					if node.Type == html.ElementNode && (node.Data == "script" || node.Data == "noscript" || node.Data == "a"|| node.Data == "style"){
+						return nil
+					}
 					var err error
 					txt, er := htmlUtil.GetSelfNodeStr(node)
 					if er != nil {
 						return errors.New("获取文本节点内容失败" + er.Error())
 					}
-					str += strings.TrimSpace(txt)
+					str += txt
 					for n := node.FirstChild; n != nil; n = n.NextSibling {
 						err = pellNodes(n)
 						if err != nil {

@@ -16,9 +16,9 @@ func Search(c *gin.Context) {
 	//从es加载
 	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
 		var datas []model.WebData
-		rows, err := db.Query(`SELECT Taskres_pageurl, Taskres_pagetitle, Taskres_pagedate, Taskres_pagepath FROM taskres where Taskres_pagetitle like '%` + w + `%' or Taskres_pagetext like '%` + w + `%' where Taskres_status = 1`)
+		rows, err := db.Query(`SELECT Taskres_pageurl, Taskres_pagetitle, Taskres_pagedate, Taskres_pagepath FROM taskres where Taskres_pagetitle like '%` + w + `%' or Taskres_pagetext like '%` + w + `%' and Taskres_status = 1`)
 		if err != nil{
-			log.Fatal(err)
+			log.Println(err)
 		}
 		for rows.Next(){
 			var tmp model.WebData
