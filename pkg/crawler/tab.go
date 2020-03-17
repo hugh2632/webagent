@@ -13,6 +13,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"webagent/pkg/setting"
 )
 
 type ChromeTab struct {
@@ -31,7 +32,7 @@ func (self ChromeTab) Close() {
 	if self.browser != nil {
 		self.browser.Destroy(&self)
 	}
-	if self.Err() != context.DeadlineExceeded{
+	if self.Err() != context.DeadlineExceeded && self.Err() != context.Canceled {
 		self.CancelFunc()
 	}
 }
@@ -96,6 +97,7 @@ func (self ChromeTab) listen(){
 			log.Println("加载超时")
 			self.msgchan <- false
 		case <-self.ch:
+			time.Sleep(setting.READ_Delay)
 			self.reset()
 			self.msgchan <- true
 		}

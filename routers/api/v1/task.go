@@ -60,7 +60,7 @@ func RunTask(c *gin.Context) {
 
 		c.JSON(http.StatusOK, gin.H{
 			"iserror": false,
-			"msg":     "扫描成功",
+			"msg":     "启动扫描成功",
 		})
 	}
 }
@@ -94,7 +94,7 @@ func TaskListSite(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, gin.H{
 			"iserror": false,
-			"msg":     "扫描成功",
+			"msg":     "获取成功",
 			"data" : res,
 		})
 	}

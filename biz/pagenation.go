@@ -43,8 +43,11 @@ func (p pagenation) RunDynic(pagerule string, millisecond int) bool {
 	time.Sleep(time.Duration(millisecond) * time.Millisecond)
 	var datas []model.CrawlerData
 	err = p.mtab.NoWaitEvaluate(p.SpiderRule, &datas)
-	if err != nil || datas == nil || len(datas) == 0 {
-		log.Println(err.Error())
+	if err != nil {
+		log.Println("执行脚本失败或超过分页范围," + err.Error())
+		return false
+	}
+	if datas == nil || len(datas) == 0{
 		return false
 	}
 	for i, _ := range datas {
