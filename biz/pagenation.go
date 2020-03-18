@@ -37,7 +37,7 @@ func (p pagenation) has(url string) bool {
 
 func (p pagenation) RunDynic(pagerule string, millisecond int) bool {
 	err := p.mtab.NoWaitEvaluate(pagerule, nil)
-	if err != nil {
+	if err != nil && err.Error() != "encountered an undefined value"{
 		return false
 	}
 	time.Sleep(time.Duration(millisecond) * time.Millisecond)

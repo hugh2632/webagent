@@ -10,38 +10,39 @@ import (
 )
 
 var IsDubug bool = true
-var Timeout time.Duration = time.Duration(30) * time.Second
+var Timeout time.Duration = 5 * time.Second
+var Read_Dealy time.Duration = 1 * time.Millisecond
 var Capacity int = 5
-var _instace *chromeBrowser
-var locker sync.RWMutex
 var FirstPage = "about:blank"
 var UrlTimeout error = errors.New("网站已超时")
 
+var _instace *chromeBrowser
+var locker sync.RWMutex
+
 type chromeBrowser struct {
-	ctx *context.Context
+	ctx    *context.Context
 	cancel *context.CancelFunc
 	sync.RWMutex
 	count int
 }
 
-func Instance() *chromeBrowser{
+func Instance() *chromeBrowser {
 	if _instace == nil {
 		locker.Lock()
 		defer locker.Unlock()
 		if _instace == nil {
 			ctx, cancel := newctx()
 			_instace = &chromeBrowser{
-				ctx: &ctx,
-				cancel:&cancel,
-				count:0,
+				ctx:    &ctx,
+				cancel: &cancel,
+				count:  0,
 			}
-
 		}
 	}
 	return _instace
 }
 
-func newctx() (context.Context, context.CancelFunc){
+func newctx() (context.Context, context.CancelFunc) {
 	opts := append(chromedp.DefaultExecAllocatorOptions[:],
 		chromedp.DisableGPU,
 		chromedp.NoDefaultBrowserCheck,
@@ -59,10 +60,10 @@ func newctx() (context.Context, context.CancelFunc){
 	return br, cancel
 }
 
-func (self *chromeBrowser) NewTab() *ChromeTab{
+func (self *chromeBrowser) NewTab() *ChromeTab {
 	for {
 		self.Lock()
-		if self.count < Capacity{
+		if self.count < Capacity {
 			self.count++
 			var brctx = *self.ctx
 			var ers = brctx.Err()
@@ -78,9 +79,8 @@ func (self *chromeBrowser) NewTab() *ChromeTab{
 			var tab = ChromeTab{
 				Context:    taskCtx,
 				CancelFunc: cancel,
-				browser: self,
-				ch: make(chan struct{}),
-				msgchan: make(chan bool),
+				browser:    self,
+				ch:         make(chan int),
 			}
 			tab.listen()
 			return &tab
@@ -92,6 +92,7 @@ func (self *chromeBrowser) NewTab() *ChromeTab{
 
 func (self *chromeBrowser) Destroy(tab *ChromeTab) {
 	self.Lock()
+	tab.CancelFunc()
 	tab = nil
 	self.count--
 	self.Unlock()

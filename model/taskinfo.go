@@ -6,8 +6,8 @@ type TaskInfo struct{
 	Taskinfo_createtime	string
 	Taskinfo_onlyfirst	string
 	Taskinfo_rebuild	string
-	Taskinfo_starttime	string
-	Taskinfo_endtime	string
+	Taskinfo_starttime	*string
+	Taskinfo_endtime	*string
 	Taskinfo_status	int
 }
 

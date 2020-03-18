@@ -17,6 +17,7 @@ var (
 	WriteTimeout time.Duration
 
 	Capacity int
+	PAGE_Wait time.Duration
 	READ_Delay time.Duration
 
 	MysqlDataSource string
@@ -47,6 +48,7 @@ func LoadServer() {
 	HTTPPort = sec.Key("HTTP_PORT").MustInt(8000)
 	ReadTimeout = time.Duration(sec.Key("READ_TIMEOUT").MustInt(30)) * time.Second
 	WriteTimeout =  time.Duration(sec.Key("WRITE_TIMEOUT").MustInt(120)) * time.Second
+	PAGE_Wait = time.Duration(sec.Key("PAGE_Wait").MustInt(10)) * time.Second
 	READ_Delay = time.Duration(sec.Key("READ_Delay").MustInt(0)) * time.Millisecond
 }
 

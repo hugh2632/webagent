@@ -17,7 +17,8 @@ func main() {
 	{
 		crawler.IsDubug = setting.RunMode == "debug"
 		crawler.Capacity = setting.Capacity
-		crawler.Timeout = setting.ReadTimeout
+		crawler.Timeout = setting.PAGE_Wait
+		crawler.Read_Dealy = setting.READ_Delay
 		crawler.FirstPage = "http://localhost:" + strconv.Itoa(setting.HTTPPort) + "/"
 		if runtime.GOOS == "windows" {
 			_ = crawler.Instance()
