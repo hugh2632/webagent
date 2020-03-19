@@ -6,22 +6,54 @@
 </head>
 <body>
 <div class="createtaskcls">
-	<input type="submit" onclick="CreateTask()" value="生成任务"/>
-	<input id="tskid" type="text" width="200px"/>
-	<input type="submit" onclick="RunTask()" value="执行"/>
-	<input type="submit" onclick="GetTaskRes()" value="获取结果"/>
-	<br>
-	<div id="reslist"></div>
+	<div>
+		<label title="">选择网站</label>
+		<select id="sel_webinfo"></select>
+		<label title="">是否只扫主页</label>
+		<select id="sel_onlyfirst">
+			<option value="no">否</option>
+			<option value="yes">是</option>
+		</select>
+		<label title="">是否强制扫描</label>
+		<select id="sel_rebuild">
+			<option value="yes">是</option>
+			<option value="no">否</option>
+		</select>
+		<input type="button" onclick="CreateTask()" value="添加任务"/>
+	</div>
+	<div>
+		<label title="">任务编号</label>
+		<input id="tskid" type="text" width="200px"/>
+		<input type="button" onclick="RunTask()" value="执行"/>
+		<input type="button" onclick="GetTaskRes()" value="获取结果"/>
+	</div>
 </div>
 
 <div class="searchcls">
+	<label title="">关键字</label>
 	<input id="w" type="text" width="300px"/>
 	<input type="submit" onclick="search()" value="搜索"/>
-	<div id="list"></div>
+	<div id="reslist"></div>
 </div>
 
 </body>
 <script>
+	$.ajax({
+		type: 'get',
+		cache: false,
+		url: '/api/v1//listsite',
+		success: function(val) {
+			if (val.iserror) {
+				alert("查询有误");
+			}
+			else{
+				document.getElementById('sel_webinfo').options.length=0;
+				for(var i = 0; i < val.data.length; i++) {
+					document.getElementById('sel_webinfo').options.add(new Option(val.data[i].Webinfo_name, val.data[i].Webinfo_id));
+				};
+			}
+		}
+	});
 	function search() {
 		$.ajax({
                 type: 'post',
@@ -35,11 +67,11 @@
                         alert("查询有误");
                     }
                     else{
-						$('#list').empty();
+						$('#reslist').empty();
 						var datas = JSON.parse(val.data);
 						for(var i=0;i<datas.length;i++){
-							$('#list').append('<div class="part"></div>');
-							var part = $('#list .part :last');
+							$('#reslist').append('<div class="part"></div>');
+							var part = $('#reslist .part :last');
 							var title = '<a target="view_window" href="' + datas[i].Webdata_url + '">' + datas[i].Webdata_title + '</a>';
 							var date = '<span>' + datas[i].Webdata_date + '</span>' ;
 							$(part).append(title);

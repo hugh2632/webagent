@@ -12,10 +12,9 @@ var examples = []string{
 	"2006-01-02",
 	"2006/01/02",
 	"2006/01/02 15:04:05",
-
 }
 
-func ParseAnyTime(input string) (time.Time, error){
+func ParseAnyTime(input string) (time.Time, error) {
 	for _, d := range examples {
 		t, er := time.Parse(d, input)
 		if er == nil {

@@ -42,21 +42,20 @@ func IsExist(f string) bool {
 	return err == nil || os.IsExist(err)
 }
 
-func EnsurePath(path string) error{
+func EnsurePath(path string) error {
 	if !IsExist(path) {
 		return CreateDir(path)
 	}
 	return nil
 }
 
-func EnsureFile(file string) (*os.File, error){
+func EnsureFile(file string) (*os.File, error) {
 	if !IsExist(file) {
-		return  os.Create(file)
-	}else{
-		return os.OpenFile(file,  os.O_RDWR|os.O_CREATE, 0666)
+		return os.Create(file)
+	} else {
+		return os.OpenFile(file, os.O_RDWR|os.O_CREATE, 0666)
 	}
 }
-
 
 //CreateDir  文件夹创建
 func CreateDir(path string) error {
@@ -67,4 +66,3 @@ func CreateDir(path string) error {
 	err = os.Chmod(path, os.ModePerm)
 	return err
 }
-

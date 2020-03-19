@@ -26,8 +26,8 @@ func main() {
 	}
 
 	router := routers.InitRouter()
-	router.StaticFS("/resource",  http.Dir("./backup"))
-	router.StaticFS("/js",  http.Dir("./web/js"))
+	router.StaticFS("/resource", http.Dir("./backup"))
+	router.StaticFS("/js", http.Dir("./web/js"))
 	router.LoadHTMLGlob("web/page/*")
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.html", gin.H{
@@ -46,6 +46,4 @@ func main() {
 		log.Println(err)
 	}
 
-
 }
-

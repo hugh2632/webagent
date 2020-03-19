@@ -204,8 +204,13 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 	var dataList []model.CrawlerData
 	var tab = crawler.Instance().NewTab()
 	defer tab.Close()
+	var data []model.CrawlerData
+	err = tab.NavigateEvaluate(url, spiderrule, &dataList)
+	if err != nil && err.Error() != "encountered an undefined value" {
+		panic(spiderrule + "执行脚本失败," + err.Error())
+	}
+	dataList = append(dataList, data...)
 	if strings.TrimSpace(pagerule) != "" && !onlyfirst {
-		err = tab.Navigate(url)
 		if err != nil {
 			panic("主页超时，任务失败")
 		}
@@ -219,14 +224,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 		if err != nil {
 			panic("分页规则有错误!")
 		}
-		dataList = *page.Datalist
-	} else {
-		var data []model.CrawlerData
-		err := tab.NavigateEvaluate(url, spiderrule, &dataList)
-		if err != nil && err.Error() != "encountered an undefined value" {
-			panic(spiderrule + "执行脚本失败," + err.Error())
-		}
-		dataList = append(dataList, data...)
+		dataList = append(dataList, *page.Datalist...)
 	}
 	if len(dataList) == 0 {
 		err = errors.New("无捕获的任务")
@@ -371,7 +369,7 @@ func TaskGetRes(taskid uint64) (info model.TaskInfo, res []model.TaskRes, err er
 			}
 		}
 	}()
-	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
 		inforow := db.QueryRow(fmt.Sprintf(`SELECT taskinfo.Taskinfo_id,
 			taskinfo.Taskinfo_webid,
 			taskinfo.Taskinfo_createtime,
@@ -399,6 +397,8 @@ func TaskGetRes(taskid uint64) (info model.TaskInfo, res []model.TaskRes, err er
 		for resrow.Next() {
 			var tmp model.TaskRes
 			err = resrow.Scan(&tmp.Taskres_taskid, &tmp.Taskres_webid, &tmp.Taskres_pageurl, &tmp.Taskres_pagetitle, &tmp.Taskres_pagedate, &tmp.Taskres_pagetext, &tmp.Taskres_pagepath, &tmp.Taskres_savetime, &tmp.Taskres_status)
+			//转一下
+			tmp.Taskres_pagetext = html.UnescapeString(tmp.Taskres_pagetext)
 			if err != nil {
 				log.Println(err.Error())
 			}

@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"github.com/gin-gonic/gin"
+	"html"
 	"log"
 	"net/http"
 	"webagent/model"
@@ -14,20 +15,22 @@ import (
 func Search(c *gin.Context) {
 	w, _ := c.GetPostForm("key")
 	//从es加载
-	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
-		var datas []model.WebData
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+		var datas []model.TaskRes
 		rows, err := db.Query(`SELECT distinct(Taskres_pageurl), Taskres_pagetitle, Taskres_pagedate, Taskres_pagepath FROM taskres where Taskres_pagetitle like '%` + w + `%' or Taskres_pagetext like '%` + w + `%'`)
-		if err != nil{
+		if err != nil {
 			log.Println(err)
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"iserror": true,
-				"msg":     "搜索失败!请查看日志" ,
+				"msg":     "搜索失败!请查看日志",
 			})
 			return
 		}
-		for rows.Next(){
-			var tmp model.WebData
-			err = rows.Scan(&tmp.Webdata_url, &tmp.Webdata_title,&tmp.Webdata_date, &tmp.Webdata_path)
+		for rows.Next() {
+			var tmp model.TaskRes
+			err = rows.Scan(&tmp.Taskres_pageurl, &tmp.Taskres_pagetitle, &tmp.Taskres_pagedate, &tmp.Taskres_pagepath)
+			//转一下
+			tmp.Taskres_pagetext = html.UnescapeString(tmp.Taskres_pagetext)
 			if err != nil {
 				log.Println(err.Error())
 			}
@@ -37,14 +40,14 @@ func Search(c *gin.Context) {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"iserror": true,
-				"msg":     "搜索失败!" ,
+				"msg":     "搜索失败!",
 			})
 		} else {
 			res, _ := json.Marshal(datas)
 			c.JSON(http.StatusOK, gin.H{
 				"iserror": false,
 				"msg":     "搜索成功",
-				"data":   string(res),
+				"data":    string(res),
 			})
 		}
 	})

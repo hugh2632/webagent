@@ -19,7 +19,7 @@ type ChromeTab struct {
 	context.CancelFunc
 	loaded  bool
 	stopped bool
-	closed bool
+	closed  bool
 	ch      chan int
 	browser *chromeBrowser
 	sync.Once
@@ -54,31 +54,31 @@ func (self *ChromeTab) GetPdfBytes(url string) ([]byte, error) {
 	return pdfBuffer, er
 }
 
-func (self *ChromeTab) reset(){
+func (self *ChromeTab) reset() {
 	self.loaded = false
 	self.stopped = false
 }
 
-func (self *ChromeTab) listen(){
+func (self *ChromeTab) listen() {
 	go func() {
 		self.Do(func() {
 			chromedp.ListenTarget(self, func(ev interface{}) {
-				if IsDubug{
-					te :=  reflect.Indirect(reflect.ValueOf(ev)).Type()
+				if IsDubug {
+					te := reflect.Indirect(reflect.ValueOf(ev)).Type()
 					name := te.String()
-					if strings.HasPrefix(name, "page."){
+					if strings.HasPrefix(name, "page.") {
 						fmt.Println(name + "\t" + reflect.ValueOf(ev).Elem().String())
 					}
 				}
 				switch ev.(type) {
-				case *page.EventLoadEventFired://两个事件确保加载完了页面
+				case *page.EventLoadEventFired: //两个事件确保加载完了页面
 					go func() {
-						self.loaded= true
-						if self.stopped{
+						self.loaded = true
+						if self.stopped {
 							self.ch <- 1
 						}
 					}()
-				case *page.EventFrameStoppedLoading://会多次触发。。 不知道原因
+				case *page.EventFrameStoppedLoading: //会多次触发。。 不知道原因
 					go func() {
 						self.stopped = true
 						if self.loaded {
@@ -94,7 +94,7 @@ func (self *ChromeTab) listen(){
 func (self *ChromeTab) newWait(f func() chan error) error {
 	var ch = make(chan bool)
 	go func() {
-		select{
+		select {
 		case <-time.After(Timeout):
 			ch <- false
 		case <-self.ch:
@@ -109,11 +109,10 @@ func (self *ChromeTab) newWait(f func() chan error) error {
 			return UrlTimeout
 		}
 		return nil
-		case c := <- f():
-			return c
+	case c := <-f():
+		return c
 	}
 }
-
 
 //获取html文本
 func (self *ChromeTab) Gethtml(url string) (string, error) {
@@ -164,4 +163,3 @@ func (self *ChromeTab) Navigate(url string) error {
 func (self *ChromeTab) NoWaitEvaluate(rule string, v interface{}) error {
 	return chromedp.Run(self, chromedp.Evaluate(rule, &v))
 }
-

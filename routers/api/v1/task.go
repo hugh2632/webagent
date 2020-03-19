@@ -67,8 +67,8 @@ func RunTask(c *gin.Context) {
 
 func GetTaskRes(c *gin.Context) {
 	var d, _ = c.GetPostForm("id")
-	i64 , _ := strconv.ParseUint(d, 10, 64)
-	info , res, err := biz.TaskGetRes(i64)
+	i64, _ := strconv.ParseUint(d, 10, 64)
+	info, res, err := biz.TaskGetRes(i64)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"iserror": true,
@@ -95,8 +95,7 @@ func TaskListSite(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"iserror": false,
 			"msg":     "获取成功",
-			"data" : res,
+			"data":    res,
 		})
 	}
 }
-

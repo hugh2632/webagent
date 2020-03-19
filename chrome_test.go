@@ -11,15 +11,14 @@ func Test_C(t *testing.T) {
 	fmt.Println(errr.Error())
 }
 
-func tt() error{
+func tt() error {
 	var err error
 	defer func() {
 		var er = recover()
-		if er != nil{
+		if er != nil {
 			err = er.(error)
 		}
 	}()
 	panic(errors.New("测试"))
 	return err
 }
-

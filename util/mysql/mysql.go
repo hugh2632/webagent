@@ -10,13 +10,13 @@ import (
 )
 
 func NewMysql(datasource string, f func(*sql.DB)) (err error) {
-	if p:= recover(); p!= nil {
-		str, ok:= p.(string)
+	if p := recover(); p != nil {
+		str, ok := p.(string)
 		if ok {
 			err = errors.New(str)
 			log.Println(str)
 			fmt.Println(str)
-		}else {
+		} else {
 			err = errors.New("panic")
 		}
 		debug.PrintStack()
@@ -33,8 +33,3 @@ func NewMysql(datasource string, f func(*sql.DB)) (err error) {
 	f(db)
 	return err
 }
-
-
-
-
-

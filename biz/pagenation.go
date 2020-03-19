@@ -24,7 +24,6 @@ func NewPagenationRule(tab *crawler.ChromeTab, webinfoid string, pagerule string
 	return &p, nil
 }
 
-
 func (p pagenation) has(url string) bool {
 	for i, _ := range *p.Datalist {
 		var v = *p.Datalist
@@ -37,7 +36,7 @@ func (p pagenation) has(url string) bool {
 
 func (p pagenation) RunDynic(pagerule string, millisecond int) bool {
 	err := p.mtab.NoWaitEvaluate(pagerule, nil)
-	if err != nil && err.Error() != "encountered an undefined value"{
+	if err != nil && err.Error() != "encountered an undefined value" {
 		return false
 	}
 	time.Sleep(time.Duration(millisecond) * time.Millisecond)
@@ -47,7 +46,7 @@ func (p pagenation) RunDynic(pagerule string, millisecond int) bool {
 		log.Println("执行脚本失败或超过分页范围," + err.Error())
 		return false
 	}
-	if datas == nil || len(datas) == 0{
+	if datas == nil || len(datas) == 0 {
 		return false
 	}
 	for i, _ := range datas {

@@ -1,7 +1,7 @@
 package model
 
-type CrawlerData struct{
+type CrawlerData struct {
 	Title string
-	Date string
-	Url	string
+	Date  string
+	Url   string
 }
