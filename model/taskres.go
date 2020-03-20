@@ -1,8 +1,8 @@
 package model
 
 type TaskRes struct {
-	Taskres_taskid    uint64
-	Taskres_webid     uint64
+	Taskres_taskid    string
+	Taskres_webid     string
 	Taskres_pageurl   string
 	Taskres_pagetitle string
 	Taskres_pagedate  string

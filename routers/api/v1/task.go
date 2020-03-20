@@ -7,7 +7,7 @@ import (
 	"webagent/biz"
 )
 
-func CreateTask(c *gin.Context) {
+func TaskCreateTask(c *gin.Context) {
 	webid, ok := c.GetPostForm("webid")
 	if !ok {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -42,15 +42,14 @@ func CreateTask(c *gin.Context) {
 	} else {
 
 		c.JSON(http.StatusOK, gin.H{
-			"taskid": strconv.FormatUint(taskid, 10),
+			"taskid": taskid,
 		})
 	}
 }
 
-func RunTask(c *gin.Context) {
+func TaskRunTask(c *gin.Context) {
 	var d, _ = c.GetPostForm("id")
-	i64, _ := strconv.ParseUint(d, 10, 64)
-	err := biz.TaskRun(i64)
+	err := biz.TaskRun(d)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"iserror": true,
@@ -65,10 +64,9 @@ func RunTask(c *gin.Context) {
 	}
 }
 
-func GetTaskRes(c *gin.Context) {
+func TaskGetTaskRes(c *gin.Context) {
 	var d, _ = c.GetPostForm("id")
-	i64, _ := strconv.ParseUint(d, 10, 64)
-	info, res, err := biz.TaskGetRes(i64)
+	info, res, err := biz.TaskGetRes(d)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"iserror": true,
@@ -96,6 +94,44 @@ func TaskListSite(c *gin.Context) {
 			"iserror": false,
 			"msg":     "获取成功",
 			"data":    res,
+		})
+	}
+}
+
+func TaskListTask(c *gin.Context) {
+	order, _ := c.GetQuery("order")
+	sort, _ := c.GetQuery("sort")
+	pageindex, b := c.GetQuery("pageindex")
+	rowcount, _ := c.GetQuery("rowcount")
+	var indexNum = -1
+	var countNum = -1
+	if b {
+		n, err := strconv.Atoi(pageindex)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"iserror": true,
+				"msg":     "pageindex非数字",
+			})
+			return
+		}
+		indexNum = n
+		cn, err := strconv.Atoi(rowcount)
+		if err == nil {
+			countNum = cn
+		}
+	}
+	res , total , err := biz.TaskListTaskInfo(sort, order, indexNum, countNum)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"iserror": true,
+			"msg":     "获取网站列表失败!" + err.Error(),
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"iserror": false,
+			"msg":     "获取成功",
+			"data":    res,
+			"total":  total,
 		})
 	}
 }

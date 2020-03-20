@@ -1,7 +1,7 @@
 package model
 
 type WebInfo struct {
-	Webinfo_id             uint64
+	Webinfo_id             string
 	Webinfo_name           string
 	Webinfo_url            string
 	Webinfo_spiderrule     *string

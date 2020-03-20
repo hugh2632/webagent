@@ -20,9 +20,10 @@ func InitRouter() *gin.Engine {
 	{
 		apiv1.POST("/search", v1.Search)
 		apiv1.GET("/listsite", v1.TaskListSite)
-		apiv1.POST("/runtask", v1.RunTask)
-		apiv1.POST("/createtask", v1.CreateTask)
-		apiv1.POST("/gettaskres", v1.GetTaskRes)
+		apiv1.POST("/runtask", v1.TaskRunTask)
+		apiv1.POST("/createtask", v1.TaskCreateTask)
+		apiv1.POST("/gettaskres", v1.TaskGetTaskRes)
+		apiv1.GET("/listtaskinfo", v1.TaskListTask)
 	}
 	return r
 }

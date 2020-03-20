@@ -4,8 +4,10 @@ import (
 	"crypto/md5"
 	"database/sql"
 	"fmt"
+	"github.com/chromedp/cdproto/runtime"
 	"github.com/pkg/errors"
 	"github.com/robertkrimen/otto"
+	"github.com/robertkrimen/otto/parser"
 	"golang.org/x/net/html"
 	"io/ioutil"
 	"log"
@@ -21,6 +23,50 @@ import (
 	"webagent/util/htmlUtil"
 	mysqlutil "webagent/util/mysql"
 )
+
+func TaskListTaskInfo(sort string, order string, pageindex int, rowcount int ) (res []model.AjaxTaskinfo, total int, err error) {
+	if rowcount <10 {
+		rowcount = 10
+	}
+	if sort == "" {
+		sort = "Taskinfo_createtime"
+	}
+	if order == "" {
+		order = "desc"
+	}
+	var minLimit = (rowcount - 1)
+	var sqlStr = "SELECT Taskinfo_id, Taskinfo_webid, Taskinfo_createtime,Taskinfo_onlyfirst, Taskinfo_rebuild, Taskinfo_starttime, Taskinfo_endtime, Taskinfo_status,Webinfo_name, Webinfo_url FROM taskinfo A inner join webinfo B on A.Taskinfo_webid = B.Webinfo_id "
+	var sqlCount = "SELECT count(1) FROM taskinfo A inner join webinfo B on A.Taskinfo_webid = B.Webinfo_id "
+	if pageindex >= 0 {
+		sqlStr += fmt.Sprintf(`order by Taskinfo_createtime desc limit %v, %v`, minLimit, rowcount)
+	}
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+		rows, err := db.Query(sqlStr)
+		if err != nil {
+			return
+		}
+		for rows.Next() {
+			var tmp model.AjaxTaskinfo
+			err = rows.Scan(&tmp.Taskinfo_id, &tmp.Taskinfo_webid, &tmp.Taskinfo_createtime,&tmp.Taskinfo_onlyfirst, &tmp.Taskinfo_rebuild , &tmp.Taskinfo_starttime, &tmp.Taskinfo_endtime,&tmp.Taskinfo_status, &tmp.Webinfo_name, &tmp.Webinfo_url )
+			if err != nil {
+				log.Println("跳过一条反序列化，" + err.Error())
+				break
+			}
+			res = append(res, tmp)
+		}
+		rows, err = db.Query(sqlCount)
+		if err != nil {
+			return
+		}
+		if rows.Next() {
+			err = rows.Scan(&total)
+			if err != nil {
+				return
+			}
+		}
+	})
+	return res, total, err
+}
 
 func TaskListSite() (res []model.WebInfo, err error) {
 	defer func() {
@@ -60,7 +106,7 @@ func TaskListSite() (res []model.WebInfo, err error) {
 	return res, err
 }
 
-func TaskNewWebinfo(name string, url string, pagenationrule string, spiderrule string) (id uint64, err error) {
+func TaskNewWebinfo(name string, url string, pagenationrule string, spiderrule string) (id string, err error) {
 	defer func() {
 		if p := recover(); p != nil {
 			str, ok := p.(string)
@@ -74,7 +120,7 @@ func TaskNewWebinfo(name string, url string, pagenationrule string, spiderrule s
 		}
 	}()
 	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
-		idRow, err := db.Query("select UUID_SHORT()")
+		idRow, err := db.Query("select UUID_Short()")
 		if err != nil {
 			panic("获取UUID失败," + err.Error())
 		}
@@ -88,7 +134,33 @@ func TaskNewWebinfo(name string, url string, pagenationrule string, spiderrule s
 	return id, err
 }
 
-func TaskNewTask(webid string, onlyfirst string, rebuild string) (id uint64, err error) {
+func TaskGetWebinfo(id string) (res model.WebInfo, err error) {
+	defer func() {
+		if p := recover(); p != nil {
+			str, ok := p.(string)
+			if ok {
+				err = errors.New(str)
+				log.Println(str)
+				fmt.Println(str)
+			} else {
+				err = errors.New("panic")
+			}
+		}
+	}()
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+		row, err := db.Query("select webinfo.Webinfo_id,webinfo.Webinfo_name,webinfo.Webinfo_url,webinfo.Webinfo_pagenationrule,webinfo.Webinfo_spiderrule,webinfo.Webinfo_snapshot from webinfo where Webinfo_id = '" + id + "'")
+		if err != nil {
+			panic("获取网站信息失败," + err.Error())
+		}
+		if row.Next(){
+			err = row.Scan(&res.Webinfo_id, &res.Webinfo_name, &res.Webinfo_url, &res.Webinfo_pagenationrule, &res.Webinfo_spiderrule, &res.Webinfo_snapshot)
+		}
+
+	})
+	return res, err
+}
+
+func TaskNewTask(webid string, onlyfirst string, rebuild string) (id string, err error) {
 	defer func() {
 		if p := recover(); p != nil {
 			str, ok := p.(string)
@@ -110,8 +182,8 @@ func TaskNewTask(webid string, onlyfirst string, rebuild string) (id uint64, err
 	if rebuild != "yes" {
 		rebuild = "no"
 	}
-	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
-		idRow, err := db.Query("select UUID_SHORT()")
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+		idRow, err := db.Query("select UUID_Short()")
 		if err != nil {
 			panic("获取UUID失败," + err.Error())
 		}
@@ -125,7 +197,7 @@ func TaskNewTask(webid string, onlyfirst string, rebuild string) (id uint64, err
 	return id, err
 }
 
-func TaskRun(taskid uint64) (err error) {
+func TaskRun(taskid string) (err error) {
 	defer func() {
 		if p := recover(); p != nil {
 			str, ok := p.(string)
@@ -141,10 +213,10 @@ func TaskRun(taskid uint64) (err error) {
 	var webinfo model.WebInfo
 	var onlyfirst *string
 	var rebuild *string
-	mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
+	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
 		rows, err := db.Query(`select B.Webinfo_id, B.Webinfo_name, B. webinfo_url, B.webinfo_spiderrule, B.webinfo_pagenationrule,A.Taskinfo_onlyfirst,A.Taskinfo_rebuild from taskinfo A
 inner join webinfo B on A.taskinfo_webid = B.webinfo_id
-where taskinfo_id = ` + strconv.FormatUint(taskid, 10))
+where taskinfo_id = ` + taskid)
 		if err != nil {
 			panic("获取任务信息失败" + err.Error())
 		}
@@ -175,7 +247,7 @@ where taskinfo_id = ` + strconv.FormatUint(taskid, 10))
 	return err
 }
 
-func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spiderrule string, onlyfirst bool, rebuild bool) (err error) {
+func TaskRunTask(taskid string, webid string, url string, pagerule string, spiderrule string, onlyfirst bool, rebuild bool) (err error) {
 	var starttime = time.Now().Format("2006-01-02 15:04:05")
 	_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
 		_, err = db.Exec(fmt.Sprintf(`update taskinfo set Taskinfo_starttime = '%v', Taskinfo_status = '%v' where Taskinfo_id = '%v'`, starttime, 0, taskid))
@@ -200,13 +272,16 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 			}
 		}
 	}()
-	var webidstr = strconv.FormatUint(webid, 10)
 	var dataList []model.CrawlerData
 	var tab = crawler.Instance().NewTab()
 	defer tab.Close()
 	var data []model.CrawlerData
 	err = tab.NavigateEvaluate(url, spiderrule, &dataList)
 	if err != nil && err.Error() != "encountered an undefined value" {
+		except, ok := err.(*runtime.ExceptionDetails)
+		if ok {
+			panic(spiderrule + "执行脚本失败," + except.Exception.Description)
+		}
 		panic(spiderrule + "执行脚本失败," + err.Error())
 	}
 	dataList = append(dataList, data...)
@@ -214,7 +289,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 		if err != nil {
 			panic("主页超时，任务失败")
 		}
-		var page, _ = NewPagenationRule(tab, webidstr, pagerule, spiderrule)
+		var page, _ = NewPagenationRule(tab, webid, pagerule, spiderrule)
 		var vm = otto.New()
 		err := vm.Set("tab", page)
 		if err != nil {
@@ -222,6 +297,14 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 		}
 		_, err = vm.Run(page.Pagenationrule)
 		if err != nil {
+			val, ok:= err.(parser.ErrorList)
+			if ok {
+				var errMsg = ""
+				for _, vv := range val{
+					errMsg += "第" + strconv.Itoa(vv.Position.Line)  + "第" + strconv.Itoa(vv.Position.Column) + "列分页规则有错误,信息:" + vv.Message + "\n"
+				}
+				panic(errMsg)
+			}
 			panic("分页规则有错误!")
 		}
 		dataList = append(dataList, *page.Datalist...)
@@ -230,7 +313,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 		err = errors.New("无捕获的任务")
 	}
 	go func() {
-		var bloom = bloomfilter.NewSqlFilter(webidstr, 4096, setting.MysqlDataSource, bloomfilter.DefaultHash...)
+		var bloom = bloomfilter.NewSqlFilter(webid, 4096, setting.MysqlDataSource, bloomfilter.DefaultHash...)
 		defer func() {
 			var endtime = time.Now().Format("2006-01-02 15:04:05")
 			_ = mysqlutil.NewMysql(setting.MysqlDataSource, func(db *sql.DB) {
@@ -263,7 +346,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 				var status = -1  //爬取结果,-1表示获取网站内容失败,-2代表保存文件失败， -3代表html源码获取成功，但是脱皮失败,-4代表超时，0代表跳过,1代表成功
 				var str = ""     //保存在数据库的脱皮数据
 				var ha = fmt.Sprintf("%x", md5.Sum([]byte(v.Title+newDate.Format("20060102"))))
-				var path = "backup/" + webidstr + "/"
+				var path = "backup/" + webid + "/"
 				var fileName = path + ha + ".html"
 				defer func() {
 					//保存数据
@@ -356,7 +439,7 @@ func TaskRunTask(taskid uint64, webid uint64, url string, pagerule string, spide
 	return err
 }
 
-func TaskGetRes(taskid uint64) (info model.TaskInfo, res []model.TaskRes, err error) {
+func TaskGetRes(taskid string) (info model.TaskInfo, res []model.TaskRes, err error) {
 	defer func() {
 		if p := recover(); p != nil {
 			str, ok := p.(string)

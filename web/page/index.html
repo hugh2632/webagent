@@ -49,7 +49,7 @@
 			else{
 				document.getElementById('sel_webinfo').options.length=0;
 				for(var i = 0; i < val.data.length; i++) {
-					document.getElementById('sel_webinfo').options.add(new Option(val.data[i].Webinfo_name, val.data[i].Webinfo_id));
+					document.getElementById('sel_webinfo').options.add(new Option(val.data[i].Webinfo_name, String(BigInt(val.data[i].Webinfo_id))));
 				};
 			}
 		}
@@ -72,8 +72,8 @@
 						for(var i=0;i<datas.length;i++){
 							$('#reslist').append('<div class="part"></div>');
 							var part = $('#reslist .part :last');
-							var title = '<a target="view_window" href="' + datas[i].Webdata_url + '">' + datas[i].Webdata_title + '</a>';
-							var date = '<span>' + datas[i].Webdata_date + '</span>' ;
+							var title = '<a target="view_window" href="' + datas[i].Taskres_pageurl + '">' + datas[i].Taskres_pagetitle + '</a>';
+							var date = '<span>' + datas[i].Taskres_pagedate + '</span>' ;
 							$(part).append(title);
 							$(part).append(date);
                         	$(part).append('<hr />');
@@ -89,9 +89,9 @@
 			cache: false,
 			url: '/api/v1/createtask',
 			data: {
-				webid: '98619442010783748',
-				onlyfirst: 'no',
-				rebuild: 'yes'
+				webid: document.getElementById('sel_webinfo').value,
+				onlyfirst: document.getElementById('sel_onlyfirst').value,
+				rebuild: document.getElementById('sel_rebuild').value,
 			},
 			success: function(val) {
 				if (val.iserror) {
